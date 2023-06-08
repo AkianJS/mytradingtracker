@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { Trade } from '$lib/interface/trades.interface';
-	import { modalStore, type ModalSettings } from '@skeletonlabs/skeleton';
+	import { modalStore, type ModalSettings, type ModalComponent } from '@skeletonlabs/skeleton';
 	import { Edit, Trash, TrendingDown, TrendingUp } from 'lucide-svelte';
 	import { fly, blur, type FlyParams, type BlurParams } from 'svelte/transition';
+	import RemoveTradeModal from './RemoveTradeModal.svelte';
 
 	export let trade: Trade;
-
-	let formToRemoveTrade: HTMLFormElement;
 
 	const trendingColor = trade.position === 'long' ? 'text-success-500' : 'text-error-500';
 	const isPositionLong = trade.position === 'long';
@@ -33,15 +32,18 @@
 	}
 
 	function openModalRemoveTrade(): void {
-		const modal: ModalSettings = {
-			type: 'confirm',
-			title: 'Remove Trade?',
-			body: 'Are you sure you want to remove this trade?',
-			response(r) {
-				if (r) formToRemoveTrade.submit();
+		const modalComponent: ModalComponent = {
+			ref: RemoveTradeModal,
+
+			props: {
+				tradeId: trade.tradeId
 			}
 		};
 
+		const modal: ModalSettings = {
+			type: 'component',
+			component: modalComponent
+		};
 		modalStore.trigger(modal);
 	}
 </script>
@@ -64,11 +66,8 @@
 			<Edit size={20} />
 		</button>
 
-		<form bind:this={formToRemoveTrade} use:enhance method="post" action="?/removeTrade">
-			<button on:click={openModalRemoveTrade} type="button">
-				<input class="hidden" value={trade.tradeId} name="tradeId" type="text" />
-				<Trash size={20} />
-			</button>
-		</form>
+		<button on:click={openModalRemoveTrade} type="button">
+			<Trash size={20} />
+		</button>
 	</td>
 </tr>

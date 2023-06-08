@@ -4,7 +4,7 @@
 	import type { ModalSettings } from '@skeletonlabs/skeleton';
 	import type { FormError } from './form-error.interface';
 	import { Link } from 'lucide-svelte';
-	import { error } from '@sveltejs/kit';
+	import { invalidateAll } from '$app/navigation';
 
 	interface PositionColor {
 		[key: string]: string;
@@ -52,13 +52,21 @@
 		method="post"
 		action="?/addTrade"
 		enctype="multipart/form-data"
-		use:enhance>
+		use:enhance={() => {
+			return async ({ result }) => {
+				if (result.type === 'success') {
+					await invalidateAll();
+					position = 'long';
+				}
+			};
+		}}>
 		<label class="label mx-auto w-56">
 			<span>Position</span>
 			<select bind:value={position} class="select {positionColor[position]}" name="position">
 				<option class="text-success-500" value="long">LONG</option>
 				<option class="text-error-500" value="short">SHORT</option>
 			</select>
+			{position}
 		</label>
 
 		<div class="grid grid-cols-2 place-items-center">

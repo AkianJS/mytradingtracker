@@ -11,8 +11,6 @@
 
 	export let data: LayoutData;
 
-	$: ({ supabase, session } = data);
-
 	onMount(() => {
 		const {
 			data: { subscription }
@@ -25,13 +23,7 @@
 		return () => subscription.unsubscribe();
 	});
 
-	const handleLogout: SubmitFunction = async ({ cancel }) => {
-		const { error } = await supabase.auth.signOut();
-
-		if (error) return alert('No se pudo cerrar sesión');
-
-		cancel();
-	};
+	$: ({ supabase, session } = data);
 </script>
 
 <Modal buttonPositive="variant-ghost-error" />
