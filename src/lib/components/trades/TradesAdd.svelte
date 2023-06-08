@@ -1,12 +1,16 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { FileButton, modalStore } from '@skeletonlabs/skeleton';
+	import { FileButton, modalStore, toastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import type { ModalSettings } from '@skeletonlabs/skeleton';
+	import type { FormError } from './form-error.interface';
 	import { Link } from 'lucide-svelte';
+	import { error } from '@sveltejs/kit';
 
 	interface PositionColor {
 		[key: string]: string;
 	}
+
+	export let errors: FormError;
 
 	let profit: number;
 	let position: string = 'long';
@@ -34,6 +38,12 @@
 
 		modalStore.trigger(modal);
 	}
+
+	const toastError: ToastSettings = {
+		message: errors.error as string
+	};
+
+	$: if (errors.error) toastStore.trigger(toastError);
 </script>
 
 <div class="card variant-ghost-secondary mt-8 p-4">
@@ -74,6 +84,8 @@
 					name="percentage"
 					step="0.01"
 					required
+					min="0"
+					max="100"
 					type="number" />
 			</label>
 		</div>

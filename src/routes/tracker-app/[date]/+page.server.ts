@@ -1,6 +1,7 @@
 import type { Trade } from '$lib/interface/trades.interface';
 import { fail, redirect, type ServerLoad } from '@sveltejs/kit';
 import type { Actions } from './$types';
+import { formatTime } from '$lib/utils';
 
 export const load: ServerLoad = async ({ params, locals }) => {
 	const session = await locals.getSession();
@@ -22,9 +23,9 @@ export const load: ServerLoad = async ({ params, locals }) => {
 export const actions = {
 	addTrade: async ({ request, locals, params }) => {
 		const session = await locals.getSession();
-
 		const form = await request.formData();
 
+		// Get the data from the form
 		const date = params.date;
 		const position = form.get('position');
 		const profit = form.get('profit');
@@ -32,24 +33,28 @@ export const actions = {
 		const notes = form.get('note');
 		const imageFile = form.get('image') as File;
 
-		console.log(imageFile);
+		let imageUrl = null;
 
 		if (imageFile.size > 0) {
+			const hour = formatTime(new Date());
+
+			// If the image is not empty, upload it to the bucket
+			// and get the public URL
 			const { data, error } = await locals.supabase.storage
 				.from('mytradingtracker-bucket')
-				.upload(`${session?.user.id}/${imageFile.name}` as string, imageFile, {
+				.upload(`${session?.user.id}/${params.date}-${hour}`, imageFile, {
 					cacheControl: '3600',
 					upsert: false
 				});
 
 			if (error) {
-				console.warn(error);
+				return fail(400, {
+					error: 'Could not upload image.'
+				});
 			} else {
-				console.log(data);
+				imageUrl = locals.supabase.storage.from('mytradingtracker-bucket').getPublicUrl(data.path);
 			}
 		}
-
-		return { success: true };
 
 		const { error } = await locals.supabase.from('trades').insert([
 			{
@@ -57,7 +62,7 @@ export const actions = {
 				position,
 				date,
 				profit,
-				image: null,
+				image: imageUrl?.data.publicUrl ?? null,
 				profitPercentage,
 				notes
 			}

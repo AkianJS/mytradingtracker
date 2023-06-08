@@ -3,8 +3,10 @@
 	import type { Trade } from '$lib/interface/trades.interface';
 	import TradesAdd from './TradesAdd.svelte';
 	import TradesRow from './TradesRow.svelte';
+	import type { FormError } from './form-error.interface';
 
 	export let trades: Trade[];
+	export let errors: FormError;
 
 	let isAdding = false;
 
@@ -45,7 +47,7 @@
 
 	{#if isAdding}
 		<section transition:blur>
-			<TradesAdd />
+			<TradesAdd {errors} />
 		</section>
 	{/if}
 </div>
