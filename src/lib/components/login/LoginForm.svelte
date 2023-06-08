@@ -17,12 +17,12 @@
 	<form use:enhance class="space-y-4" method="POST">
 		<label class="label">
 			<span>E-mail</span>
-			<input name="email" class="input" type="email" />
+			<input required name="email" class="input" type="email" />
 		</label>
 
 		<label class="label">
 			<span>Password</span>
-			<input name="password" class="input" type="password" />
+			<input required name="password" class="input" type="password" />
 		</label>
 
 		<p>

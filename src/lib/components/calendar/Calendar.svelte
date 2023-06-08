@@ -63,7 +63,7 @@
 	}
 
 	function formatDate(day: Date) {
-		return `${day.getDate()}-${day.getMonth()}-${day.getFullYear()}`.toLocaleLowerCase();
+		return `${day.getDate()}-${day.getMonth() + 1}-${day.getFullYear()}`.toLocaleLowerCase();
 	}
 
 	onMount(() => {
@@ -71,7 +71,7 @@
 	});
 </script>
 
-<div class="mx-[auto] mt-8 max-w-7xl px-4">
+<div class="mx-[auto] max-w-7xl">
 	<div class="mb-4 flex h-12 items-center justify-around">
 		<button class="btn-icon variant-ghost" on:click={previousMonth}><ArrowBigLeftDash /> </button>
 		<h2>{MONTHS[month]} {year}</h2>

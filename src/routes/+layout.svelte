@@ -2,11 +2,12 @@
 	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	import '../app.postcss';
-	import { AppBar } from '@skeletonlabs/skeleton';
+	import { Modal } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
 	import { invalidate } from '$app/navigation';
 	import type { LayoutData } from './$types';
 	import type { SubmitFunction } from '@sveltejs/kit';
+	import Navbar from '$lib/components/layout/Navbar.svelte';
 
 	export let data: LayoutData;
 
@@ -33,11 +34,10 @@
 	};
 </script>
 
-<nav class="mb-8">
-	<AppBar>
-		<svelte:fragment slot="lead">(icon)</svelte:fragment>
-		(title)
-		<svelte:fragment slot="trail">(actions)</svelte:fragment>
-	</AppBar>
-</nav>
-<slot />
+<Modal buttonPositive="variant-ghost-error" />
+
+<Navbar {data} />
+
+<main class="p-6">
+	<slot />
+</main>
