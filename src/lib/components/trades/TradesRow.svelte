@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import type { Trade } from '$lib/interface/trades.interface';
 	import { modalStore, type ModalSettings, type ModalComponent } from '@skeletonlabs/skeleton';
 	import { Edit, Trash, TrendingDown, TrendingUp } from 'lucide-svelte';
@@ -48,7 +47,7 @@
 	}
 </script>
 
-<tr in:fly={flyTransitionOptions} out:blur={blurTransitionOptions}>
+<tr in:fly={flyTransitionOptions} out:blur|local={blurTransitionOptions}>
 	<td class="{trendingColor} flex items-center gap-4"
 		>{trade.position.toUpperCase()}
 		{#if isPositionLong}

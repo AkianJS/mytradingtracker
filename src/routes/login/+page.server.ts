@@ -4,6 +4,10 @@ import type { Actions } from './$types';
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
+		const session = await locals.supabase.auth.getSession();
+
+		if (session) throw redirect(303, '/tracker-app');
+
 		const body = Object.fromEntries(await request.formData());
 
 		const { error: err } = await locals.supabase.auth.signInWithPassword({
@@ -22,6 +26,6 @@ export const actions: Actions = {
 			});
 		}
 
-		throw redirect(303, '/');
+		throw redirect(303, '/tracker-app');
 	}
 };

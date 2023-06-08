@@ -46,7 +46,7 @@
 		>{isAdding ? 'Cancel' : 'Add new trade'}</button>
 
 	{#if isAdding}
-		<section transition:blur>
+		<section transition:blur|local>
 			<TradesAdd {errors} />
 		</section>
 	{/if}
