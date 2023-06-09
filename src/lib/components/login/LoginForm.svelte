@@ -10,11 +10,12 @@
 
 	const anchorText = title.toLowerCase() === 'register' ? 'login here!' : 'register here!';
 	const anchorLink = title.toLowerCase() === 'register' ? '/login' : '/register';
+	const action = title.toLowerCase() === 'register' ? '?/register' : '?/login';
 </script>
 
 <main class="card variant-glass-primary mx-auto max-w-lg space-y-4 p-4 pb-8">
 	<h2 class="h2 text-center">{title}</h2>
-	<form use:enhance class="space-y-4" method="POST">
+	<form use:enhance {action} class="space-y-4" method="post">
 		<label class="label">
 			<span>E-mail</span>
 			<input required name="email" class="input" type="email" />
@@ -30,7 +31,9 @@
 		</p>
 		<button type="submit" class="variant-ghost-success btn w-full">{title}</button>
 	</form>
-	<button class="variant-ghost-secondary btn w-full">Login with Google</button>
+	<form method="post" action="?/google">
+		<button type="submit" class="variant-ghost-secondary btn w-full">Login with Google</button>
+	</form>
 </main>
 
 <style lang="postcss">
