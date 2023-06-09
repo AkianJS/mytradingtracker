@@ -8,6 +8,9 @@ module.exports = {
 	],
 	parser: '@typescript-eslint/parser',
 	plugins: ['@typescript-eslint'],
+	rules: {
+		'no-console': 'error'
+	},
 	parserOptions: {
 		sourceType: 'module',
 		ecmaVersion: 2020,

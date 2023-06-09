@@ -3,9 +3,8 @@ import { fail, redirect, type ServerLoad } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
 export const load: ServerLoad = async ({ locals }) => {
-	const session = await locals.supabase.auth.getSession();
-
-	if (session) {
+	const { data } = await locals.supabase.auth.getSession();
+	if (data.session) {
 		throw redirect(303, '/tracker-app');
 	}
 };
