@@ -9,8 +9,6 @@
 
 	const { tradeId } = component.props;
 
-	export let parent: any;
-
 	function closeModal(): void {
 		modalStore.close();
 	}

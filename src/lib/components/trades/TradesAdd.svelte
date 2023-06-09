@@ -13,10 +13,10 @@
 	export let errors: FormError;
 
 	let profit: number;
-	let position: string = 'long';
+	let position = 'long';
 	let percentage: number;
 	let files: FileList;
-	let image: string = '';
+	let image = '';
 
 	const positionColor: PositionColor = {
 		long: 'text-success-500',
@@ -66,7 +66,6 @@
 				<option class="text-success-500" value="long">LONG</option>
 				<option class="text-error-500" value="short">SHORT</option>
 			</select>
-			{position}
 		</label>
 
 		<div class="grid grid-cols-2 place-items-center">

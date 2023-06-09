@@ -28,7 +28,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each trades as trade, i}
+			{#each trades as trade}
 				<TradesRow {trade} />
 			{/each}
 		</tbody>
