@@ -2,6 +2,8 @@
 	import { onMount } from 'svelte';
 	import { getMonth, getYear, addMonths, subMonths, startOfWeek, addDays } from 'date-fns';
 	import { ArrowBigLeftDash, ArrowBigRight } from 'lucide-svelte';
+	import type { Trade } from '$lib/interface/trades.interface';
+	import { profitColor, sumPercentageOfSameDay } from './calendar-service';
 
 	const WEEKDAYS_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 	const MONTHS = [
@@ -19,11 +21,11 @@
 		'December'
 	];
 
-	let currentDate = new Date();
+	export let trades: Trade[] = [];
 
+	let currentDate = new Date();
 	let month = getMonth(currentDate);
 	let year = getYear(currentDate);
-
 	let weeks: Date[][] = [];
 
 	function generateCalendar() {
@@ -97,8 +99,16 @@
 								: 'bg-gray-600 hover:bg-gray-700'}"
 							><a
 								href={`tracker-app/${formatDate(day)}`}
-								class="flex h-full w-full items-start justify-start">
-								{day.getDate()}</a>
+								class="relative flex h-full w-full items-start justify-start">
+								{day.getDate()}
+								<p
+									class="{profitColor(
+										trades,
+										formatDate(day)
+									)} absolute left-2/4 top-2/4 -translate-x-2/4 -translate-y-2/4 font-bold">
+									{sumPercentageOfSameDay(trades, formatDate(day))}
+								</p>
+							</a>
 						</td>
 					{/each}
 				</tr>
