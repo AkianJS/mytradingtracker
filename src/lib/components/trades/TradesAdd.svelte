@@ -5,10 +5,7 @@
 	import type { FormError } from './form-error.interface';
 	import { Link } from 'lucide-svelte';
 	import { invalidateAll } from '$app/navigation';
-
-	interface PositionColor {
-		[key: string]: string;
-	}
+	import { positionColor } from './forms';
 
 	export let errors: FormError;
 
@@ -17,11 +14,6 @@
 	let percentage: number;
 	let files: FileList;
 	let image = '';
-
-	const positionColor: PositionColor = {
-		long: 'text-success-500',
-		short: 'text-error-500'
-	};
 
 	function onChangeHandler(e: Event): void {
 		const { files } = e.target as HTMLInputElement;
@@ -62,7 +54,7 @@
 		}}>
 		<label class="label mx-auto w-56">
 			<span>Position</span>
-			<select bind:value={position} class="select {positionColor[position]}" name="position">
+			<select bind:value={position} class="select {positionColor(position)}" name="position">
 				<option class="text-success-500" value="long">LONG</option>
 				<option class="text-error-500" value="short">SHORT</option>
 			</select>

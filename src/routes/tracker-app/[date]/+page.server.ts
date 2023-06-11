@@ -35,7 +35,7 @@ export const actions = {
 
 		let imageUrl = null;
 
-		if (imageFile.size > 0) {
+		if (imageFile?.size > 0) {
 			const hour = formatTime(new Date());
 
 			// If the image is not empty, upload it to the bucket
@@ -71,6 +71,61 @@ export const actions = {
 		if (error) {
 			return fail(400, {
 				error: 'Could not add trade.'
+			});
+		}
+
+		return { success: true };
+	},
+
+	updateTrade: async ({ request, locals, params }) => {
+		const session = await locals.getSession();
+		const form = await request.formData();
+
+		// Get the data from the form
+		const position = form.get('position');
+		const profit = form.get('profit');
+		const profitPercentage = form.get('percentage');
+		const notes = form.get('note');
+		const imageFile = form.get('image') as File;
+		const tradeId = form.get('tradeId');
+
+		let imageUrl = null;
+
+		if (imageFile?.size > 0) {
+			const hour = formatTime(new Date());
+
+			// If the image is not empty, upload it to the bucket
+			// and get the public URL
+			const { data, error } = await locals.supabase.storage
+				.from('mytradingtracker-bucket')
+				.upload(`${session?.user.id}/${params.date}-${hour}`, imageFile, {
+					cacheControl: '3600',
+					upsert: false
+				});
+
+			if (error) {
+				return fail(400, {
+					error: 'Could not upload image.'
+				});
+			} else {
+				imageUrl = locals.supabase.storage.from('mytradingtracker-bucket').getPublicUrl(data.path);
+			}
+		}
+
+		const { error } = await locals.supabase
+			.from('trades')
+			.update({
+				position,
+				profit,
+				image: imageUrl?.data.publicUrl ?? null,
+				profitPercentage,
+				notes
+			})
+			.eq('tradeId', tradeId);
+
+		if (error) {
+			return fail(400, {
+				error: 'Could not update the trade.'
 			});
 		}
 

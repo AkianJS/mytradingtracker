@@ -16,29 +16,31 @@
 </script>
 
 <div class="table-container mx-auto max-w-6xl">
-	<table class="table-hover table max-lg:hidden">
-		<thead>
-			<tr>
-				<th class="table-cell-fit">Position</th>
-				<th class="table-cell-fit">Profit/Loss</th>
-				<th class="table-cell-fit">Profit Percentaje</th>
-				<th class="w-1/4">Image</th>
-				<th class="w-2/4">Note</th>
-				<th />
-			</tr>
-		</thead>
-		<tbody>
-			{#each trades as trade}
-				<TradesRow {trade} />
-			{/each}
-		</tbody>
-		<tfoot>
-			<tr class="bg-surface-900">
-				<th colspan="2">Total trades:</th>
-				<td colspan="4">{trades.length}</td>
-			</tr>
-		</tfoot>
-	</table>
+	<form method="post" action="?/updateTrade">
+		<table class="table-hover table max-lg:hidden">
+			<thead>
+				<tr>
+					<th class="table-cell-fit">Position</th>
+					<th class="table-cell-fit">Profit/Loss</th>
+					<th class="table-cell-fit">Profit Percentaje</th>
+					<th class="w-1/4">Image</th>
+					<th class="w-2/4">Note</th>
+					<th />
+				</tr>
+			</thead>
+			<tbody>
+				{#each trades as trade}
+					<TradesRow {trade} />
+				{/each}
+			</tbody>
+			<tfoot>
+				<tr class="bg-surface-900">
+					<th colspan="2">Total trades:</th>
+					<td colspan="4">{trades.length}</td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
 
 	<button
 		on:click={changeIsAdding}
