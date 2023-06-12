@@ -106,14 +106,14 @@
 		{/if}
 	</td>
 
-	<td>{trade.image ?? ''}</td>
+	<td>{trade.image ? 'Screenshot' : ''}</td>
 
 	<td>
 		{#if isEditing}
 			<textarea bind:value={trade.notes} name="note" class="textarea" rows="4" />
 			<input name="tradeId" class="hidden" type="number" bind:value={trade.tradeId} />
 		{:else}
-			<p class="max-h-20 overflow-scroll whitespace-normal">{trade.notes ?? ''}</p>
+			<p class="max-h-20 overflow-auto whitespace-normal">{trade.notes ?? ''}</p>
 		{/if}
 	</td>
 

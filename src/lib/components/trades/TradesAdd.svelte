@@ -44,14 +44,16 @@
 		method="post"
 		action="?/addTrade"
 		enctype="multipart/form-data"
-		use:enhance={() => {
+		use:enhance={({ form }) => {
 			return async ({ result }) => {
 				if (result.type === 'success') {
+					form.reset();
 					await invalidateAll();
 					position = 'long';
 				}
 			};
 		}}>
+		{image}
 		<label class="label mx-auto w-56">
 			<span>Position</span>
 			<select bind:value={position} class="select {positionColor(position)}" name="position">
@@ -116,6 +118,7 @@
 <style lang="postcss">
 	input[type='number']::-webkit-inner-spin-button,
 	input[type='number']::-webkit-outer-spin-button {
+		display: none;
 		-webkit-appearance: textfield;
 		margin: 0;
 	}
