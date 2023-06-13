@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PercentageCalculator from '$lib/components/PercentageCalculator.svelte';
 	import TradesDetail from '$lib/components/trades/TradesDetail.svelte';
 	import type { FormError } from '$lib/components/trades/form-error.interface';
 	import type { ActionData, PageData } from './$types';
@@ -15,3 +16,4 @@
 </script>
 
 <TradesDetail {errors} trades={data.trades} />
+<PercentageCalculator />

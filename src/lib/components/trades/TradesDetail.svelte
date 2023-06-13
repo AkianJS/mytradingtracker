@@ -4,6 +4,7 @@
 	import TradesAdd from './TradesAdd.svelte';
 	import TradesRow from './TradesRow.svelte';
 	import type { FormError } from './form-error.interface';
+	import { enhance } from '$app/forms';
 
 	export let trades: Trade[];
 	export let errors: FormError;
@@ -16,7 +17,7 @@
 </script>
 
 <div class="table-container mx-auto max-w-6xl">
-	<form method="post" action="?/updateTrade">
+	<form use:enhance method="post" action="?/updateTrade">
 		<table class="table-hover table max-lg:hidden">
 			<thead>
 				<tr>
