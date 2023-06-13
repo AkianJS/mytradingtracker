@@ -20,5 +20,5 @@
 		<span>Profit</span>
 		<input class="input" step="0.1" bind:value={profit} type="number" />
 	</label>
-	<p>{!isNaN(percentage) ? percentage : 0}</p>
+	<p>Percentage: {!isNaN(percentage) ? percentage : 0} %</p>
 </div>

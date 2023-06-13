@@ -20,17 +20,17 @@ export function sumPercentageOfSameDay(trades: Trade[], day: string) {
 	);
 
 	// Return the total percentage as a string
-	return totalPercentage;
+	return `${totalPercentage} %`;
 }
 
 /* This function takes an array of trades and a day string, and returns a CSS class name
    based on the sum of the profit percentages for all trades that occurred on that day. */
 export function profitColor(trades: Trade[], day: string) {
 	// Get the total percentage for the specified day
-	const totalPercentage = sumPercentageOfSameDay(trades, day);
+	const totalPercentage = +sumPercentageOfSameDay(trades, day).slice(0, -2);
 
 	// If the total percentage is not an empty string, return a CSS class name based on its value
-	if (totalPercentage !== '') {
+	if (!isNaN(totalPercentage)) {
 		if (totalPercentage > 0) return 'text-success-500';
 		if (totalPercentage < 0) return 'text-error-500';
 	}
