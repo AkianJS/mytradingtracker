@@ -2,3 +2,40 @@ input:focus,
 input:focus-visible {
 	outline: none;
 }
+
+/* Background-color logic of the actions column */
+.odd-column {
+	@apply bg-surface-800;
+}
+
+.even-column {
+	@apply bg-surface-700;
+}
+tr:hover .odd-column {
+	background-color: rgb(var(--color-surface-700));
+}
+
+tr:not(:hover) .even-column::before {
+	background-color: rgba(0 0 0 / 0.16);
+	position: absolute;
+	content: '';
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+tr:hover .odd-column:after,
+tr:hover .even-column:after {
+	background-color: rgba(0 0 0 / 0.1);
+	position: absolute;
+	content: '';
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+tr:hover > .even-column {
+	background-color: rgb(var(--color-surface-700));
+}

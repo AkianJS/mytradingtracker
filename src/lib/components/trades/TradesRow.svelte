@@ -1,12 +1,12 @@
 <script lang="ts">
 	import type { Trade } from '$lib/interface/trades.interface';
-	import { modalStore, type ModalSettings, type ModalComponent } from '@skeletonlabs/skeleton';
-	import { Edit, Save, Trash, TrendingDown, TrendingUp, XSquare } from 'lucide-svelte';
+	import { TrendingDown, TrendingUp } from 'lucide-svelte';
 	import { fly, blur, type FlyParams, type BlurParams } from 'svelte/transition';
-	import RemoveTradeModal from './RemoveTradeModal.svelte';
 	import { positionColor } from './forms';
+	import ActionsColumn from './trades-row/ActionsColumn.svelte';
 
 	export let trade: Trade;
+	export let index: number;
 
 	let isEditing = false;
 
@@ -37,24 +37,15 @@
 		isEditing = !isEditing;
 	}
 
-	function openModalRemoveTrade(): void {
-		const modalComponent: ModalComponent = {
-			ref: RemoveTradeModal,
-
-			props: {
-				tradeId: trade.tradeId
-			}
-		};
-
-		const modal: ModalSettings = {
-			type: 'component',
-			component: modalComponent
-		};
-		modalStore.trigger(modal);
+	function formatNotes(notes?: string) {
+		return notes?.split(/\n/g) ?? '';
 	}
 </script>
 
 <tr in:fly={flyTransitionOptions} out:blur|local={blurTransitionOptions}>
+	<td>
+		{trade?.symbol?.toUpperCase() ?? 'N/A'}
+	</td>
 	<td class="{trendingColor} flex items-center gap-4">
 		{#if isEditing}
 			<select
@@ -108,34 +99,24 @@
 
 	<td>{trade.image ? 'Screenshot' : ''}</td>
 
-	<td>
+	<td class="flex flex-wrap gap-4">
+		{#each trade?.checklist ?? [] as check}
+			<span class="variant-ghost-primary chip">{check}</span>
+		{/each}
+	</td>
+
+	<td class="table-cell w-96">
 		{#if isEditing}
 			<textarea bind:value={trade.notes} name="note" class="textarea" rows="4" />
 			<input name="tradeId" class="hidden" type="number" bind:value={trade.tradeId} />
 		{:else}
-			<p class="max-h-20 overflow-auto whitespace-normal">{trade.notes ?? ''}</p>
+			{#each formatNotes(trade?.notes) as note}
+				<p class="max-h-20 overflow-auto whitespace-normal">{note}</p>
+			{/each}
 		{/if}
 	</td>
 
-	<td class="sticky flex gap-4">
-		{#if isEditing}
-			<button type="submit">
-				<Save size={20} />
-			</button>
-
-			<button on:click={changeIsEditing}>
-				<XSquare size={20} />
-			</button>
-		{:else}
-			<button on:click={changeIsEditing}>
-				<Edit size={20} />
-			</button>
-
-			<button on:click={openModalRemoveTrade} type="button">
-				<Trash size={20} />
-			</button>
-		{/if}
-	</td>
+	<ActionsColumn {trade} {index} {isEditing} {changeIsEditing} />
 </tr>
 
 <style lang="postcss">

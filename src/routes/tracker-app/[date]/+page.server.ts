@@ -14,8 +14,10 @@ export const load: ServerLoad = async ({ params, locals }) => {
 		.eq('date', params.date)
 		.eq('id', session?.user.id);
 
+	const orderTrades = data?.sort((a, b) => a.tradeId - b.tradeId) as Trade[];
+
 	return {
-		trades: data as Trade[],
+		trades: orderTrades,
 		error
 	};
 };

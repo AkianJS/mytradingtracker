@@ -20,7 +20,7 @@ export function sumPercentageOfSameDay(trades: Trade[], day: string) {
 	);
 
 	// Return the total percentage as a string
-	return `${totalPercentage} %`;
+	return `${totalPercentage.toFixed(2)} %`;
 }
 
 /* This function takes an array of trades and a day string, and returns a CSS class name
