@@ -10,7 +10,7 @@
 	export let trades: Trade[];
 	export let errors: FormError;
 
-	let isAdding = false;
+	let isAdding = true;
 
 	function changeIsAdding() {
 		isAdding = !isAdding;
@@ -22,10 +22,10 @@
 		<table class="table-hover table max-lg:overflow-y-scroll">
 			<thead>
 				<tr>
-					<th class="table-cell-fit">Symbol</th>
+					<th class="table-cell-fit">Pair</th>
 					<th class="table-cell-fit">Position</th>
 					<th class="table-cell-fit">Profit/Loss</th>
-					<th class="table-cell-fit">Profit Percentaje</th>
+					<th class="table-cell-fit">P/L %</th>
 					<th class="w-40">Image</th>
 					<th class="w-40">Checklist</th>
 					<th class="min-w-[30rem]">Note</th>

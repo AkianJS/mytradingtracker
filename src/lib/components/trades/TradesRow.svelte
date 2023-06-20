@@ -44,7 +44,7 @@
 
 <tr in:fly={flyTransitionOptions} out:blur|local={blurTransitionOptions}>
 	<td>
-		{trade?.symbol?.toUpperCase() ?? 'N/A'}
+		{trade?.pair?.toUpperCase() ?? 'N/A'}
 	</td>
 	<td class="{trendingColor} flex items-center gap-4">
 		{#if isEditing}
@@ -101,7 +101,7 @@
 
 	<td class="flex flex-wrap gap-4">
 		{#each trade?.checklist ?? [] as check}
-			<span class="variant-ghost-primary chip">{check}</span>
+			<span class="{check.color} chip">{check.value}</span>
 		{/each}
 	</td>
 

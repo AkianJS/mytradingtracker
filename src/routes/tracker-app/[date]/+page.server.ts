@@ -34,6 +34,8 @@ export const actions = {
 		const profitPercentage = form.get('percentage');
 		const notes = form.get('note');
 		const imageFile = form.get('image') as File;
+		const checklist = form.get('checklist') as string;
+		const pair = form.get('pair');
 
 		let imageUrl = null;
 
@@ -61,8 +63,10 @@ export const actions = {
 		const { error } = await locals.supabase.from('trades').insert([
 			{
 				id: session?.user.id,
+				pair,
 				position,
 				date,
+				checklist: JSON.parse(checklist),
 				profit,
 				image: imageUrl?.data.publicUrl ?? null,
 				profitPercentage,

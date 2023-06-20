@@ -1,7 +1,7 @@
 export interface Trade {
 	id: string;
-	symbol?: string;
-	checklist: string[];
+	pair: string;
+	checklist: Checklist[];
 	tradeId: number;
 	position: 'long' | 'short';
 	date: string;
@@ -10,3 +10,8 @@ export interface Trade {
 	image?: string;
 	notes?: string;
 }
+
+export type Checklist = {
+	value: string;
+	color: string;
+};
