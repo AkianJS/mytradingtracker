@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 </script>
 
-{$page.data.session?.user.email}
+<h1>Under construction</h1>
