@@ -9,8 +9,9 @@
 
 	export let trades: Trade[];
 	export let errors: FormError;
+	export let shouldAddOrEdit = true;
 
-	let isAdding = true;
+	let isAdding = false;
 
 	function changeIsAdding() {
 		isAdding = !isAdding;
@@ -29,7 +30,9 @@
 					<th class="w-40">Image</th>
 					<th class="w-40">Checklist</th>
 					<th class="min-w-[30rem]">Note</th>
-					<th class="table-cell-fit sticky right-0" />
+					{#if shouldAddOrEdit}
+						<th class="table-cell-fit sticky right-0" />
+					{/if}
 				</tr>
 			</thead>
 			<tbody>
@@ -46,14 +49,16 @@
 		</table>
 	</form>
 </div>
-<button
-	on:click={changeIsAdding}
-	class=" btn mt-8 {isAdding ? 'variant-ghost-error' : 'variant-ghost-tertiary'}"
-	>{isAdding ? 'Cancel' : 'Add new trade'}</button>
+{#if shouldAddOrEdit}
+	<button
+		on:click={changeIsAdding}
+		class=" btn mt-8 {isAdding ? 'variant-ghost-error' : 'variant-ghost-tertiary'}"
+		>{isAdding ? 'Cancel' : 'Add new trade'}</button>
 
-{#if isAdding}
-	<section class="flex flex-wrap justify-center gap-4" transition:blur|local>
-		<TradesAdd {errors} />
-		<PercentageCalculator />
-	</section>
+	{#if isAdding}
+		<section class="flex flex-wrap justify-center gap-4" transition:blur>
+			<TradesAdd {errors} />
+			<PercentageCalculator />
+		</section>
+	{/if}
 {/if}

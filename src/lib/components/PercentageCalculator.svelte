@@ -10,7 +10,7 @@
 	$: profit, amount, calculatePercentage();
 </script>
 
-<div class="card mt-8 max-w-sm space-y-4 p-6">
+<div class="card variant-ghost-surface mt-8 max-w-sm space-y-4 p-6">
 	<h2 class="text-center">Trade percentage calculator</h2>
 	<label class="label">
 		<span>Account size</span>

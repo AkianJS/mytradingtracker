@@ -26,7 +26,7 @@
 		</article>
 		<div />
 		<div />
-		<article class="card space-y-4 p-6">
+		<article class="card variant-ghost-surface space-y-4 p-6">
 			<header class="card-header space-y-4">
 				<h3 class="h3">Once you are logged in</h3>
 				<p>Go to Tracker-App you're going to see a calendar!</p>

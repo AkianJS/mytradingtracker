@@ -42,7 +42,7 @@
 	}
 </script>
 
-<tr in:fly={flyTransitionOptions} out:blur|local={blurTransitionOptions}>
+<tr in:fly={flyTransitionOptions} out:blur={blurTransitionOptions}>
 	<td>
 		{trade?.pair?.toUpperCase() ?? 'N/A'}
 	</td>
