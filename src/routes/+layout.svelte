@@ -7,6 +7,7 @@
 	import { invalidate } from '$app/navigation';
 	import type { LayoutData } from './$types';
 	import Navbar from '$lib/components/layout/Navbar.svelte';
+	import Footer from '$lib/components/layout/Footer.svelte';
 
 	export let data: LayoutData;
 
@@ -32,3 +33,5 @@
 <main class="p-6">
 	<slot />
 </main>
+
+<Footer />
