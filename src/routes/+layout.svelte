@@ -26,6 +26,13 @@
 	$: ({ supabase, session } = data);
 </script>
 
+<svelte:head>
+	<title>My Trading Tracker!</title>
+	<meta
+		name="description"
+		content="Track your trades with ease using our powerful trading tracker app! Whether you're trading forex, cryptocurrencies, or other assets, our app makes it easy to keep track of your trades and monitor your performance over time. With support for multiple trading pairs and advanced analytics, you'll have all the tools you need to make informed trading decisions and stay on top of your portfolio. Plus, our app is built using the latest technologies like npm and TypeScript, so you can be sure you're getting a reliable and cutting-edge trading experience. Try it out today and take your trading to the next level!" />
+</svelte:head>
+
 <Modal buttonPositive="variant-ghost-error" />
 
 <Navbar {data} />
