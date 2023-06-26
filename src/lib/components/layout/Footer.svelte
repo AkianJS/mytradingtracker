@@ -2,7 +2,7 @@
 	import { Github, Instagram, Linkedin } from 'lucide-svelte';
 </script>
 
-<div class="bg-black p-6">
+<div class="mt-auto bg-black p-6">
 	<footer class="mx-auto mt-8 max-w-5xl space-y-6">
 		<div class="flex items-center justify-center gap-x-12">
 			<a
@@ -46,10 +46,7 @@
 	</footer>
 </div>
 
-<!-- anchor that opens in a new tab -->
-<!-- <a href="https://www.linkedin.com/in/gonzajs-romero/" target="_blank" rel="noopener noreferrer"> -->
-
-<style>
+<style lang="postcss">
 	a {
 		transition: all 0.2s ease-in-out;
 	}

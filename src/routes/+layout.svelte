@@ -35,10 +35,20 @@
 
 <Modal buttonPositive="variant-ghost-error" />
 
-<Navbar {data} />
+<div class="main-content-container min-h-screen">
+	<Navbar {data} />
 
-<main class="p-6">
-	<slot />
-</main>
+	<main class="p-6">
+		<slot />
+	</main>
 
-<Footer />
+	<Footer />
+</div>
+
+<style lang="postcss">
+	.main-content-container {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		grid-template-rows: auto 1fr auto;
+	}
+</style>
